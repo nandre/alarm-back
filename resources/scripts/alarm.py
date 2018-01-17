@@ -76,10 +76,9 @@ msg="nomessage"
 
 #camera = picamera.PiCamera()
 while msg != "STOP":
-  for msgreceived in sys.stdin:
-    print(msgreceived)
+    msg=sys.stdin.readlines()[0]
+    print msg
     sys.stdout.flush()
-    msg=msgreceived
   if GPIO.input(pir):
     a = datetime.datetime.now()
     a = str(a)
