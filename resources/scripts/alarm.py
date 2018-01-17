@@ -75,13 +75,7 @@ GPIO.setup(pir, GPIO.IN)
 
 def main():
   #camera = picamera.PiCamera()
-  msg = "GO"
   while True:
-    for line in sys.stdin:
-      print line
-      msg = l
-    if msg=="STOP":
-      return 0
     if GPIO.input(pir):
       a = datetime.datetime.now()
       a = str(a)
