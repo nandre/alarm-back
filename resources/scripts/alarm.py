@@ -77,8 +77,6 @@ def main():
 #camera = picamera.PiCamera()
   msg = "GO"
   while True:
-    print sys.stdin.readlines()
-    sys.stdout.flush()
     lines = sys.stdin.readlines()
     for l in lines:
       msg = l
