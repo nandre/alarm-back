@@ -72,9 +72,10 @@ GPIO.setmode(GPIO.BOARD)
 pir = 7
 
 GPIO.setup(pir, GPIO.IN)
+msg=nomessage
 
 #camera = picamera.PiCamera()
-while True:
+while msg != "STOP":
   if GPIO.input(pir):
     a = datetime.datetime.now()
     a = str(a)
@@ -93,4 +94,6 @@ while True:
     # camera.stop_recording()
     #sms(to,message,hash)
     mail(alert,pic,vid)
-    time.sleep(5) #    time.sleep(30)
+    time.sleep(10) #    time.sleep(30)
+    for msg in sys.stdin:
+      msg=msg

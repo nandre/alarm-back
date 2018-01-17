@@ -70,9 +70,10 @@ app.get('/alarm/stop', (req, res, next) => {
 
     } else {
 
+        alarmScript.send("STOP")
+
         alarmScript.end(function (err) {
             if (err) {
-                //TODO use "on message" event
                 console.log('FAILED - Alarm stopped failed : ' + err.toString())
             }
 
