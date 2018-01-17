@@ -68,15 +68,17 @@ app.get('/alarm/stop', (req, res, next) => {
 
         alarmScript.send("STOP")
 
-        alarmScript.end(function (err) {
+        /*alarmScript.end(function (err) {
             if (err) {
                 console.log('FAILED - Alarm stopped failed : ' + err.toString())
             }
 
             console.log('Alarm stopped')
 
-            return res.status(200).json({message: 'Alarm Stopped'});
-        });
+        });*/
+
+        return res.status(200).json({message: 'Alarm Stopped'});
+
 
     }
 
