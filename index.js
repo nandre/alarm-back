@@ -41,10 +41,7 @@ app.get('/alarm/start', (req, res, next) => {
 
     alarmScript = new PythonShell('./resources/scripts/alarm.py');
 
-    alarmScript.on('message', function (message) {
-        // received a message sent from the Python script
-        console.log(message);
-    });
+    console.log(alarmScript.toString());
 
     return res.status(200).json({message : 'Alarm Started'});
 
@@ -58,6 +55,8 @@ app.get('/alarm/stop', (req, res, next) => {
     const {code} = req.query;
 
     console.log("code : " + code);
+
+    console.log(alarmScript.toString());
 
     if(code !== cfgApp.alarmcode) {
         console.log('FAILED - Alarm stopped failed, wrong code')
