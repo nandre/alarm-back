@@ -18,7 +18,7 @@ export ALARM_EMAIL_FROM=monemail@gmail.com
 
 export ALARM_EMAIL_PASSWORD=monpassword
 
-export ALARM_EMAIL_FROM=monadresseexposee@domotique.com
+export ALARM_EMAIL_FROM_ALIAS=monadresseexposee@domotique.com
 
 export ALARM_EMAIL_TO=adresseemailquirecoislesalertes@gmail.com
 
