@@ -39,16 +39,13 @@ app.get('/alarm/start', (req, res, next) => {
 
     PythonShell.run('./resources/scripts/alarm.py', function (err) {
         if (err){
-            console.log('FAILED - Alarm start failed')
-
-            return res.status(500).json({message : err.toString()});
+            console.log('FAILED - Alarm start failed : ' + err.toString())
         }
 
-        console.log('Alarm started')
-
-        return res.status(200).json({message : 'Alarm Started'});
+        return next()
     });
 
+    return res.status(200).json({message : 'Alarm Started'});
 
 });
 
@@ -72,15 +69,18 @@ app.get('/alarm/stop', (req, res, next) => {
 
         alarmScript.end(function (err) {
             if (err) {
-                console.log('FAILED - Alarm stopped failed')
-
-                return res.status(500).json({message: err.toString()});
+                //TODO use "on message" event
+                console.log('FAILED - Alarm stopped failed : ' + err.toString())
             }
 
             console.log('Alarm stopped')
 
-            return res.status(200).json({message: 'Alarm Stopped'});
+            return next()
         });
+
+        //TODO use "on message" event
+        return res.status(200).json({message: 'Alarm Stopped'});
+
     }
 
 });
