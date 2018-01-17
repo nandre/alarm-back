@@ -73,35 +73,31 @@ pir = 7
 
 GPIO.setup(pir, GPIO.IN)
 
-def main():
+
 #camera = picamera.PiCamera()
-  msg = "GO"
-  while True:
-    lines = sys.stdin.readlines()
-    for l in lines:
-      msg = l
-    if msg=="STOP":
-      break
-    if GPIO.input(pir):
-      a = datetime.datetime.now()
-      a = str(a)
-      a = a[0:19]
-      alert = ("Alarm at "+str(a))
-      print(alert)
-      pic = (a)+(".jpg")
-      vid = (a)+(".h264")
-      message = (alert),(pic),(vid)
-      # camera.resolution = (1024,768)
-      # camera.capture(pic)
-      # time.sleep(2)
-      # camera.resolution = (640, 480)
-      # camera.start_recording(vid)
-      # camera.wait_recording(10)
-      # camera.stop_recording()
-      #sms(to,message,hash)
-      mail(alert,pic,vid)
-      time.sleep(10) #    time.sleep(30)
-
-
-
-main()
+msg = "GO"
+while True:
+lines = sys.stdin.readlines()
+for l in lines:
+  msg = l
+if msg=="STOP":
+  break
+if GPIO.input(pir):
+  a = datetime.datetime.now()
+  a = str(a)
+  a = a[0:19]
+  alert = ("Alarm at "+str(a))
+  print(alert)
+  pic = (a)+(".jpg")
+  vid = (a)+(".h264")
+  message = (alert),(pic),(vid)
+  # camera.resolution = (1024,768)
+  # camera.capture(pic)
+  # time.sleep(2)
+  # camera.resolution = (640, 480)
+  # camera.start_recording(vid)
+  # camera.wait_recording(10)
+  # camera.stop_recording()
+  #sms(to,message,hash)
+  mail(alert,pic,vid)
+  time.sleep(10) #    time.sleep(30)
