@@ -45,7 +45,22 @@ app.get('/alarm/start', (req, res, next) => {
 
     setTimeout(function(){         alarmScript.send("STOP"); }, 5000);
 
-    return res.status(200).json({message : 'Alarm Started'});
+    alarmScript.on('message', function (message) {
+        // received a message sent from the Python script (a simple "print" statement)
+        console.log(message);
+    });
+
+    // end the input stream and allow the process to exit
+    alarmScript.end(function (err) {
+        if (err){
+            throw err;
+        }
+
+        console.log('finished');
+    });
+
+
+    //return res.status(200).json({message : 'Alarm Started'});
 
 });
 

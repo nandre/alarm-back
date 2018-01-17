@@ -74,6 +74,7 @@ pir = 7
 GPIO.setup(pir, GPIO.IN)
 msg="nomessage"
 
+def main():
 #camera = picamera.PiCamera()
 while True:
   if sys.stdin.readlines()[0]=="STOP":
@@ -97,3 +98,8 @@ while True:
     #sms(to,message,hash)
     mail(alert,pic,vid)
     time.sleep(10) #    time.sleep(30)
+
+
+
+main()
+sys.exit()
