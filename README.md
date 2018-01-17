@@ -15,8 +15,11 @@ sudo vi /etc/profile
 And add at the end of the file (replace with proper values) :
 
 export ALARM_EMAIL_FROM=monemail@gmail.com
+
 export ALARM_EMAIL_PASSWORD=monpassword
+
 export ALARM_EMAIL_FROM=monadresseexposee@domotique.com
+
 export ALARM_EMAIL_TO=adresseemailquirecoislesalertes@gmail.com
 
 Save it : wq! (or maj+ZZ)
