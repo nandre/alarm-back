@@ -57,10 +57,7 @@ app.get('/alarm/start', (req, res, next) => {
         console.log('finished');
     });*/
 
-    setTimeout(function(){alarmScript.send("STOP"); }, 5000);
-
-
-    //return res.status(200).json({message : 'Alarm Started'});
+    return res.status(200).json({message : 'Alarm Started'});
 
 });
 
