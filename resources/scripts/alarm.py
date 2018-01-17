@@ -81,6 +81,8 @@ def main():
     for l in lines:
       msg = l
     if msg=="STOP":
+      print "STOP"
+      sys.stdout.flush()
       break
     if GPIO.input(pir):
       a = datetime.datetime.now()

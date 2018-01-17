@@ -41,7 +41,7 @@ app.get('/alarm/start', (req, res, next) => {
 
     alarmScript = new PythonShell('./resources/scripts/alarm.py');
 
-    console.log(alarmScript);
+    //console.log(alarmScript);
 
     setTimeout(function(){alarmScript.send("STOP"); }, 5000);
 
@@ -51,13 +51,13 @@ app.get('/alarm/start', (req, res, next) => {
     });
 
     // end the input stream and allow the process to exit
-    /*alarmScript.end(function (err) {
+    alarmScript.end(function (err) {
         if (err){
             throw err;
         }
 
         console.log('finished');
-    });*/
+    });
 
 
     //return res.status(200).json({message : 'Alarm Started'});
@@ -71,9 +71,9 @@ app.get('/alarm/stop', (req, res, next) => {
 
     const {code} = req.query;
 
-    console.log("code : " + code);
+    //console.log("code : " + code);
 
-    console.log(alarmScript);
+    //console.log(alarmScript);
 
     if(code !== cfgApp.alarmcode) {
         console.log('FAILED - Alarm stopped failed, wrong code')
