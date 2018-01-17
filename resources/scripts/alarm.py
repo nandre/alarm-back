@@ -72,12 +72,15 @@ GPIO.setmode(GPIO.BOARD)
 pir = 7
 
 GPIO.setup(pir, GPIO.IN)
-msg="nomessage"
 
 def main():
 #camera = picamera.PiCamera()
+  msg = "GO"
   while True:
-    if sys.stdin.readlines()[0]=="STOP":
+    lines = sys.stdin.readlines()
+    for l in lines:
+      line = l
+    if line=="STOP":
       break
     if GPIO.input(pir):
       a = datetime.datetime.now()
