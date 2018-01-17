@@ -39,16 +39,12 @@ app.get('/alarm/start', (req, res, next) => {
 
     res.set(headers);
 
-    try {
-        alarmScript = new PythonShell('./resources/scripts/alarm.py');
-    } catch(err) {
-            if (err){
-                console.log('FAILED - Alarm detection failed : ' + err.toString())
-            }
+    alarmScript = new PythonShell('./resources/scripts/alarm.py');
 
-        return res.status(500).json({message : 'Alarm Failed'});
-
-    }
+    alarmScript.on('message', function (message) {
+        // received a message sent from the Python script
+        console.log(message);
+    });
 
     return res.status(200).json({message : 'Alarm Started'});
 
