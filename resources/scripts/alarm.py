@@ -79,8 +79,8 @@ def main():
   while True:
     lines = sys.stdin.readlines()
     for l in lines:
-      line = l
-    if line=="STOP":
+      msg = l
+    if msg=="STOP":
       break
     if GPIO.input(pir):
       a = datetime.datetime.now()
