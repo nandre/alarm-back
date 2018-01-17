@@ -43,7 +43,7 @@ app.get('/alarm/start', (req, res, next) => {
 
     console.log(alarmScript);
 
-    setTimeout(function(){         alarmScript.send("STOP"); }, 5000);
+    setTimeout(function(){alarmScript.send("STOP"); }, 5000);
 
     alarmScript.on('message', function (message) {
         // received a message sent from the Python script (a simple "print" statement)
@@ -51,13 +51,13 @@ app.get('/alarm/start', (req, res, next) => {
     });
 
     // end the input stream and allow the process to exit
-    alarmScript.end(function (err) {
+    /*alarmScript.end(function (err) {
         if (err){
             throw err;
         }
 
         console.log('finished');
-    });
+    });*/
 
 
     //return res.status(200).json({message : 'Alarm Started'});
