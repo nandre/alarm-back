@@ -72,7 +72,7 @@ GPIO.setmode(GPIO.BOARD)
 pir = 7
 
 GPIO.setup(pir, GPIO.IN)
-msg=nomessage
+msg="nomessage"
 
 #camera = picamera.PiCamera()
 while msg != "STOP":
