@@ -29,6 +29,8 @@ const request = require('superagent');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+var alarmScript;
+
 const headers = {
         'Access-Control-Allow-Origin': '*'
     }
@@ -37,13 +39,16 @@ app.get('/alarm/start', (req, res, next) => {
 
     res.set(headers);
 
-    PythonShell.run('./resources/scripts/alarm.py', function (err) {
-        if (err){
-            console.log('FAILED - Alarm start failed : ' + err.toString())
-        }
+    try {
+        alarmScript = new PythonShell('./resources/scripts/alarm.py');
+    } catch(err) {
+            if (err){
+                console.log('FAILED - Alarm detection failed : ' + err.toString())
+            }
 
-        return next()
-    });
+        return res.status(500).json({message : 'Alarm Failed'});
+
+    }
 
     return res.status(200).json({message : 'Alarm Started'});
 
@@ -52,8 +57,6 @@ app.get('/alarm/start', (req, res, next) => {
 
 app.get('/alarm/stop', (req, res, next) => {
 
-    const alarmScript = new PythonShell('./resources/scripts/alarm.py');
-
     res.set(headers);
 
     const {code} = req.query;
@@ -61,7 +64,7 @@ app.get('/alarm/stop', (req, res, next) => {
     console.log("code : " + code);
 
     if(code !== cfgApp.alarmcode) {
-        console.log('FAILED - Alarm stopped failed')
+        console.log('FAILED - Alarm stopped failed, wrong code')
 
         return res.status(500).json({message: 'Denied. Wrong Alarm Code.'});
 
@@ -75,11 +78,8 @@ app.get('/alarm/stop', (req, res, next) => {
 
             console.log('Alarm stopped')
 
-            return next()
+            return res.status(200).json({message: 'Alarm Stopped'});
         });
-
-        //TODO use "on message" event
-        return res.status(200).json({message: 'Alarm Stopped'});
 
     }
 
