@@ -77,12 +77,12 @@ def main():
 #camera = picamera.PiCamera()
   msg = "GO"
   while True:
+    print sys.stdin.readlines()
+    sys.stdout.flush()
     lines = sys.stdin.readlines()
     for l in lines:
       msg = l
     if msg=="STOP":
-      print "STOP"
-      sys.stdout.flush()
       break
     if GPIO.input(pir):
       a = datetime.datetime.now()
@@ -107,4 +107,3 @@ def main():
 
 
 main()
-sys.exit()

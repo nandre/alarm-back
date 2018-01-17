@@ -43,8 +43,6 @@ app.get('/alarm/start', (req, res, next) => {
 
     //console.log(alarmScript);
 
-    setTimeout(function(){alarmScript.send("STOP"); }, 5000);
-
     alarmScript.on('message', function (message) {
         // received a message sent from the Python script (a simple "print" statement)
         console.log(message);
@@ -59,6 +57,8 @@ app.get('/alarm/start', (req, res, next) => {
         console.log('finished');
     });
 
+    setTimeout(function(){alarmScript.send("STOP"); }, 5000);
+
 
     //return res.status(200).json({message : 'Alarm Started'});
 
@@ -70,10 +70,6 @@ app.get('/alarm/stop', (req, res, next) => {
     res.set(headers);
 
     const {code} = req.query;
-
-    //console.log("code : " + code);
-
-    //console.log(alarmScript);
 
     if(code !== cfgApp.alarmcode) {
         console.log('FAILED - Alarm stopped failed, wrong code')
@@ -94,7 +90,6 @@ app.get('/alarm/stop', (req, res, next) => {
         });*/
 
         return res.status(200).json({message: 'Alarm Stopped'});
-
 
     }
 
