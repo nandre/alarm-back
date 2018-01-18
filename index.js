@@ -3,8 +3,15 @@
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const cfgManager = require('node-config-manager');
-const PythonShell = require('python-shell');
+const logger = require('./lib/shared/logger.service');
+const express = require('express');
+const app = express();
+
 const path = require('path');
+const bodyParser = require('body-parser');
+const request = require('superagent');
+const { spawn } = require('child_process');
+
 
 cfgManager.init({
     configDir: process.env.NODE_CONFIG_DIR || './config',
@@ -19,14 +26,6 @@ const cfgApp = cfgManager.method.App();
 
 cfgApp.port = process.env.PORT || cfgApp.port;
 
-const logger = require('./lib/shared/logger.service');
-const express = require('express');
-const app = express();
-
-const path = require('path');
-const bodyParser = require('body-parser');
-const request = require('superagent');
-const { spawn } = require('child_process');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
