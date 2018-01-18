@@ -13,35 +13,7 @@ import urllib
 import urllib2
 import sys
 
-#SMS settings
-#Replace the xxxxx with the number you wish to text.
-to = "xxxxx"
-#Replace the xxxxx with the hash given to you by smspi.co.uk
-hash = "xxxxx"
 
-def sms(to,message,hash) :
-  values = {
-    'to' : to,
-    'message' : message,
-    'hash' : hash } #Grab your hash from http://www.smspi.co.uk
-
-  url = 'http://www.smspi.co.uk/send/'
-
-  postdata = urllib.urlencode(values)
-  req = urllib2.Request(url, postdata)
-
-  print 'Attempt to send SMS ...'
-
-  try:
-    response = urllib2.urlopen(req)
-    response_url = response.geturl()
-    if response_url==url:
-      print response.read()
-  except urllib2.URLError, e:
-      print 'Send failed!'
-      print e.reason
-
-#envoi mail
 def mail(message, f=None,f2=None):
   a = datetime.datetime.now()
   a = str(a)

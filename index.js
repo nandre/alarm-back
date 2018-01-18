@@ -25,6 +25,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const request = require('superagent');
+const { spawn } = require('child_process');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -39,7 +40,21 @@ app.get('/alarm/start', (req, res, next) => {
 
     res.set(headers);
 
-    alarmScript = new PythonShell('./resources/scripts/alarm.py');
+    alarmScript = spawn('python3', ['./resources/scripts/alarm.py']);
+
+    /**
+     * USE THIS INSTEAD TO KILL PROCESS
+     * const { spawn } = require('child_process');
+     const child = spawn('python3', ['script.py']);
+
+     child.on('close', (code, signal) => {
+      console.log(
+        `child process terminated due to receipt of signal ${signal}`);
+    });
+
+     // Send SIGTERM to process
+     child.kill('SIGTERM');
+     */
 
     //console.log(alarmScript);
 
@@ -75,7 +90,16 @@ app.get('/alarm/stop', (req, res, next) => {
 
     } else {
 
-        alarmScript.send("STOP")
+        alarmScript.on('close', (code, signal) => {
+            console.log(
+                `child process terminated due to receipt of signal ${signal}`);
+        });
+
+        // Send SIGTERM to process
+        alarmScript.kill('SIGTERM');
+
+
+        //alarmScript.send("STOP")
 
         /*alarmScript.end(function (err) {
             if (err) {
