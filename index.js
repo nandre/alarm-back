@@ -39,7 +39,9 @@ app.get('/alarm/start', (req, res, next) => {
 
     res.set(headers);
 
-    alarmScript = spawn('python3', ['./resources/scripts/alarm.py']);
+    console.log("cwd" ,process.cwd());
+
+    alarmScript = spawn('python3', ['alarm.py'], [{cwd:'./resources/script/'}]);
 
     /**
      * USE THIS INSTEAD TO KILL PROCESS
