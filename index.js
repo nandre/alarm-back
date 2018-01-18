@@ -42,39 +42,7 @@ app.get('/alarm/start', (req, res, next) => {
 
     const scriptPath = path.join('./', './resources/scripts/alarm.py');
 
-    console.log('scriptPath', scriptPath)
-
     alarmScript = spawn('python', [scriptPath]);
-
-    /**
-     * USE THIS INSTEAD TO KILL PROCESS
-     * const { spawn } = require('child_process');
-     const child = spawn('python3', ['script.py']);
-
-     child.on('close', (code, signal) => {
-      console.log(
-        `child process terminated due to receipt of signal ${signal}`);
-    });
-
-     // Send SIGTERM to process
-     child.kill('SIGTERM');
-     */
-
-    //console.log(alarmScript);
-
-    /*alarmScript.on('message', function (message) {
-        // received a message sent from the Python script (a simple "print" statement)
-        console.log(message);
-    });*/
-
-    // end the input stream and allow the process to exit
-    /*alarmScript.end(function (err) {
-        if (err){
-            throw err;
-        }
-
-        console.log('finished');
-    });*/
 
     return res.status(200).json({message : 'Alarm Started'});
 
@@ -95,24 +63,11 @@ app.get('/alarm/stop', (req, res, next) => {
     } else {
 
         alarmScript.on('close', (code, signal) => {
-            console.log(
-                `child process terminated due to receipt of signal ${signal}`);
+            console.log(`Alarm process terminated due to receipt of signal ${signal}`);
         });
 
         // Send SIGTERM to process
         alarmScript.kill('SIGTERM');
-
-
-        //alarmScript.send("STOP")
-
-        /*alarmScript.end(function (err) {
-            if (err) {
-                console.log('FAILED - Alarm stopped failed : ' + err.toString())
-            }
-
-            console.log('Alarm stopped')
-
-        });*/
 
         return res.status(200).json({message: 'Alarm Stopped'});
 
