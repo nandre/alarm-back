@@ -3,7 +3,6 @@
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const cfgManager = require('node-config-manager');
-const PythonShell = require('python-shell');
 
 cfgManager.init({
     configDir: process.env.NODE_CONFIG_DIR || './config',
