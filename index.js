@@ -3,6 +3,8 @@
 const Boom = require('boom');
 const uuid = require('node-uuid');
 const cfgManager = require('node-config-manager');
+const PythonShell = require('python-shell');
+const path = require('path');
 
 cfgManager.init({
     configDir: process.env.NODE_CONFIG_DIR || './config',
@@ -39,9 +41,11 @@ app.get('/alarm/start', (req, res, next) => {
 
     res.set(headers);
 
-    console.log("cwd" ,process.cwd());
+    const scriptPath = path.join('./', './resources/scripts/alarm.py');
 
-    alarmScript = spawn('python3', ['alarm.py'], [{cwd:'./resources/script/'}]);
+    console.log('scriptPath', scriptPath)
+
+    alarmScript = spawn('python', [scriptPath]);
 
     /**
      * USE THIS INSTEAD TO KILL PROCESS
